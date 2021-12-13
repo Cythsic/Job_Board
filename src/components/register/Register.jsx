@@ -1,0 +1,73 @@
+import './signin.css';
+import axios from 'axios';
+import React, { useState } from 'react';
+
+
+export default (props) => {
+
+    const [userData, setUserData] = useState({
+        password1: '',
+        password2: '',
+        username: '',
+    });
+
+
+    return (
+        <div>
+            <div className="outer">
+                <div className="inner">
+                    <h3>Sign Up</h3>
+                    <div className="form-group">
+                        <label>username</label>
+                        <input className="form-control" value={userData.username} onChange={(e) => {
+                            const username = e.target.value;
+                            setUserData({
+                                ...userData,
+                                username: username
+                            })
+                        }} />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Password</label>
+                        <input className="form-control" value={userData.password1} onChange={(e) => {
+                            const password1 = e.target.value;
+                            setUserData({
+                                ...userData,
+                                password1: password1
+                            })
+                        }} type='password' />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Confirm Password</label>
+                        <input className="form-control" value={userData.password2} onChange={(e) => {
+                            const password2 = e.target.value;
+                            setUserData({
+                                ...userData,
+                                password2: password2
+                            })
+                        }} type='password' />
+                    </div>
+
+                    <button className="btn btn-dark btn-lg btn-block"
+                        onClick={() => {
+                            axios.post('/api/users', userData)
+                                .then(response => {console.log(response)
+                                    // alert(response.request.responseURL)
+                                    window.location.href = '/';
+                                })
+                                .catch(error => {console.log(error)
+                                    alert("register fail")
+
+                                });
+                        }}
+                    >Register New User</button>
+
+                </div>
+            </div>
+        </div >
+    );
+
+
+}
