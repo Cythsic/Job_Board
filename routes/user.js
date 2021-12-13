@@ -101,18 +101,19 @@ router.post('/authenticate', function (request, response) {
 
 
 router.post('/', function (req, res) {
-    const { username, password1, password2 } = req.body;
+    const { password, password2, username } = req.body;
     // const username = req.body.username
     // const password = req.body.password
-    if (!username || !password1 || !password2) {
+    console.log(req.body)
+    if (!username || !password || !password2) {
         return res.status(422).send("Missing username: " + username + "or password" )
     }
 
-    if (password1 !== password2) {
+    if (password !== password2) {
         return res.status(422).send("The confirm password doen not match." )
     }
 
-    return UserModel.insertUser({ username, password1 })
+    return UserModel.insertUser({ username, password })
         .then((userResponse) => {
             return res.status(200).send(userResponse);
 

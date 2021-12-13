@@ -36,7 +36,7 @@ export default (props) =>{
                         }}/>
                         </div>
 
-                        <button className="btn btn-dark btn-lg btn-block"
+                        <button className="btn btn-dark btn-ml btn-block"
                         onClick={() => {
                             axios.post('/api/users/authenticate', userData)
                                 .then(response => {console.log(response)

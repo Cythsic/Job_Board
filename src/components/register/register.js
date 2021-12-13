@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 export default (props) => {
 
     const [userData, setUserData] = useState({
-        password1: '',
+        password: '',
         password2: '',
         username: '',
     });
@@ -30,11 +30,11 @@ export default (props) => {
 
                     <div className="form-group">
                         <label>Password</label>
-                        <input className="form-control" value={userData.password1} onChange={(e) => {
-                            const password1 = e.target.value;
+                        <input className="form-control" value={userData.password} onChange={(e) => {
+                            const password = e.target.value;
                             setUserData({
                                 ...userData,
-                                password1: password1
+                                password: password
                             })
                         }} type='password' />
                     </div>
@@ -55,7 +55,8 @@ export default (props) => {
                             axios.post('/api/users', userData)
                                 .then(response => {console.log(response)
                                     // alert(response.request.responseURL)
-                                    window.location.href = '/';
+                                    alert(userData.password)
+                                    // window.location.href = '/';
                                 })
                                 .catch(error => {console.log(error)
                                     alert("register fail")

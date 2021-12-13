@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import Navbar from './components/navbar/Navbar';
+import NavbarMenu from './components/navbar/NavbarMenu';
 import './App.css';
 import Home from './components/pages/Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -19,29 +20,11 @@ import helper from './helper';
 // import '../node_modules/material-design-icons/iconfont/material-icons.css';
 
 function App() {
-  useEffect(() => {
-    axios.get('/api/users/whoIsLoggedIn')
-      .then(response => {
-        console.log("api request")
-        // alert(response.request.responseURL)
-        if(response.data!==''){
-          helper.username = response.data;
-        }
-        else {
-          helper.username = '';
-          console.log(response.data)
-        }
-      })
-      .catch(error => {
-        console.log(error)
-        // alert("register fail")
-        console.log(error)
-      });
   
-},[]);
   return (
     <Router>
-      <Navbar />
+      {/* <Navbar /> */}
+      <NavbarMenu />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/services' element={<Services />} />
