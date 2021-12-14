@@ -16,7 +16,7 @@ function getUserJob(username) {
 }
 
 function getJob(job) {
-    return JobModel.find({ job: job }).exec();
+    return JobModel.find({ "job": { "$regex": job, "$options": "i" } }).exec();
 }
 
 function findJobById(id) {

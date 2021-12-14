@@ -122,7 +122,48 @@ router.post('/', function (req, res) {
 
 });
 
+router.put('/favorite', auth_middleware, function (request, response) {
+    const username = request.username;
+    const id = request.body.id;
+    console.log(request.body.id);
 
+    return UserModel.favorite(username, id)
+        .then(response.status(200).send("add to " + username + " favorites!"))
+        .catch(error => response.status(400).send(error))
+
+
+})
+
+router.put('/unfavorite', auth_middleware, function (request, response) {
+    const username = request.username;
+    const id = request.body.id;
+    console.log(request.body.id);
+
+    return UserModel.unfavorite(username, id)
+        .then(response.status(200).send("remove from " + username + " favorites!"))
+        .catch(error => response.status(400).send(error))
+
+
+})
+
+router.get('/findFavorite/:username', (request, response) => {
+    const username = request.params.username;
+    if (!username) {
+        return response.status(422).send("Missing data");
+    }
+
+    return UserModel.findUserByUsername(username)
+        .then((userResponse) => {
+            if (!userResponse) {
+                response.status(404).send("User not found");
+            }
+
+            response.send(userResponse.favorites);
+        })
+        .catch((error) => response.status(500).send("Issue getting user"))
+
+
+})
 
 // router.put('/favorite/:id', (request, response) => {
 

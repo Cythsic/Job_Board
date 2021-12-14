@@ -34,8 +34,8 @@ function App() {
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/postjob' element={<PostJob />} />
         <Route path='/consulting' element={<Consulting />} />
-        <Route path='/result' element={<SearchResult />} />
-        <Route path='/detail' element={<Details />} />
+        <Route path='/result/:keyword' element={<SearchResult />} />
+        <Route path='/detail/:id' element={<Details />} />
         <Route path='/register' element={<Register />} />
       </Routes>
     </Router>

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../App.css';
-import JobDetail from '../jobDisplay/jobDetail';
+import JobDetail from '../jobDisplay/JobDetail';
 
 export default function ContactUs() {
   return <JobDetail />;

@@ -3,6 +3,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { FiAlignRight, FiXCircle, FiChevronDown } from "react-icons/fi";
 import './NavbarMenu.css';
 import axios from 'axios';
+import helper from '../../helper';
 // import logo from '../../img/logo.png';
 
 
@@ -21,7 +22,9 @@ const Navbarmenu = () => {
                   ...userLog,
                   user: response.data,
                   isLog:true
-              })
+              });
+              helper.isLog = true;
+              helper.username = response.data;
             }
           })
           .catch(error => {
@@ -50,6 +53,8 @@ const Navbarmenu = () => {
                       user:'',
                       isLog: false
                   })
+                  helper.isLog = false;
+              helper.username = '';
                 })
                 .catch(error => {
                   console.log(error)
