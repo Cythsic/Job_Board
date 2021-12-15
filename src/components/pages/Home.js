@@ -10,6 +10,7 @@ export default function Home(props) {
     var keys = inputData.keyword === '' ? 'alljobs' : inputData.keyword;
     window.location.href = '/result/' + keys;
   }
+
   return (
     <>
       <div className='home'>
@@ -28,13 +29,7 @@ export default function Home(props) {
             }} />
           </div>
           <div className="col-sm-2">
-            {/* <Link */}
-            {/* to='/result' */}
-            {/* to={{pathname:"/result", hash:'#ahash', query:{keyword: inputData.keyword}  }} */}
-            {/* className='nav-links' */}
-            {/* > */}
             <button type="button" className="btn btn-primary mb-3" onClick={handleSearch}>Search</button>
-            {/* </Link> */}
           </div>
         </form>
       </div>

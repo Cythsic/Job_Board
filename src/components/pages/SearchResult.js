@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import '../../App.css';
 import JobCard from '../jobDisplay/jobCard.js';
@@ -8,7 +7,6 @@ export default function SearchResult(props) {
     const currurl = window.location.pathname;
     const path = currurl.split('/');
     const keyword = path[path.length - 1];
-    console.log("location:", path)
     const [jobData, setJob] = useState({
         datas: []
     });
@@ -22,7 +20,6 @@ export default function SearchResult(props) {
                         ...jobData,
                         datas: response.data
                     })
-                    console.log(jobData.datas)
                 })
                 .catch(error => {
                     console.log(error)
@@ -48,16 +45,13 @@ export default function SearchResult(props) {
             <h3>Search Result for "{keyword}"</h3>
             <div className='jobcard'>
                 {jobData.datas.map((item, index) => {
-                    console.log("search"+item)
                     return (
                         <li key={index}>
                             <JobCard jobInfo={item} />
                         </li>
                     );
-
                 })}
             </div>
         </div>
     </div>
 }
-// }

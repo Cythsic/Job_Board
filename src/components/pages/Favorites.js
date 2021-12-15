@@ -5,7 +5,6 @@ import axios from 'axios';
 import './Favorites.css';
 
 export default function Favorites() {
-
     const [allPokemon, setAllPokemon] = useState([]);
     const [userName, setUserName] = useState('');
     const [isLogged, setLog] = useState('not-log')
@@ -13,13 +12,10 @@ export default function Favorites() {
     function findAllPokemon() {
         axios.get('api/users/whoIsLoggedIn')
             .then(response => {
-                //   setUserName(response.data)
-
                 if (response.data !== '') {
                     setLog('is-log');
                     axios.get('api/favorites/getFavJob/' + response.data)
                         .then(response => {
-                            console.log("FavList Data: ", response.data)
                             setAllPokemon(response.data)
                         })
                 }
@@ -35,7 +31,6 @@ export default function Favorites() {
             <div className='jobcard'>
                 <p className={isLogged}>Please log in to see your favorites.</p>
                 {allPokemon.map((item, index) => {
-                    console.log("search:" + JSON.stringify(item))
                     return (
                         <li key={index}>
                             <JobCardFav jobInfo={item} />

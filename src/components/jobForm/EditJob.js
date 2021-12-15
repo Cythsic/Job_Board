@@ -8,8 +8,6 @@ export default (props) => {
   const path = currurl.split('/');
   const isFav = path[path.length - 1];
   const id = path[path.length - 2];
-  console.log("location:", isFav)
-
 
   const [jobData, setJobData] = useState({
     job: '',
@@ -40,7 +38,6 @@ export default (props) => {
         var url = '/api/jobs/findId/' + id;
         axios.get(url)
           .then(response => {
-            console.log(response.data[0])
             setJobData({
               ...jobData,
               job: response.data[0].job,
@@ -63,55 +60,40 @@ export default (props) => {
           })
           .catch(error => {
             console.log(error)
-            // alert("edit job fail")
-
           });
-        console.log("user:", res.data)
-
       })
       .catch(error => {
         console.log(error)
-        // alert("get user fail")
-
       });
-
   }, []);
 
   const handleEdit = () => {
     var urlJob = '/api/jobs/edit/' + id;
     var urlFav = '/api/favorites/editFav/' + id;
 
-    console.log(favData);
     if (isFav === "true") {
-
       axios.put(urlFav, favData)
         .then(response => {
           console.log("edit fav success")
         })
         .catch(error => {
           console.log(error)
-          // alert("edit job fail fav")
-
         });
     }
     axios.put(urlJob, jobData)
       .then(response => {
         console.log(response)
         window.location.href = document.referrer;
-
       })
       .catch(error => {
         console.log(error)
-        // alert("edit job fail")
-
       });
   }
-
-
 
   const handleCancel = () => {
     window.location.href = document.referrer;
   }
+
   return (
     <div className="outer">
       <div className="inner">
@@ -119,7 +101,6 @@ export default (props) => {
           <h3>Post A New Job</h3>
           <div className="form-group">
             <label for="inputTitle" className="col-sm-2 control-label">Job Title
-              {/* <span class="material-icons">star_rate</span> */}
             </label>
             <div class="col-sm-10">
               <input type="text" className="form-control" id="inputTitle" placeholder="Job Title" value={jobData.job} onChange={(e) => {
@@ -234,21 +215,6 @@ export default (props) => {
               </Link>
             </div>
           </div>
-          {/* <div className="mb-3 row">
-              <div className="col-sm-offset-2 col-sm-2">
-                <button type="button" className={favButtonName} >{favContent}</button>
-              </div>
-              <div className="col-sm-offset-2 col-sm-2">
-                <button type="button" className="btn btn-info btn-lg" >Edit</button>
-              </div>
-            </div> */}
-          {/* <div className="form-group">
-              <div className="col-sm-offset-2 col-sm-10">
-                <Link to='/'>
-                  <button type="button" className="btn btn-default btn-lg" >Cancel</button>
-                </Link>
-              </div>
-            </div> */}
         </form>
       </div>
     </div>
