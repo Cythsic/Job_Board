@@ -1,7 +1,5 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import './jobDetail.css';
-import jsonData from './testdata.json';
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function JobDetail() {
@@ -138,24 +136,35 @@ export default function JobDetail() {
         console.log(urlFav)
         var urlJob = '/api/jobs/delete/' + id;
         console.log(urlJob)
-        axios.delete(urlFav)
-        .then(response => {
-            // window.location.href = '/';
-            console.log(response)
-        })
-        .catch(error => console.error(error));
+        if (isFav === true) {
+            axios.delete(urlFav)
+                .then(response => {
+                    // window.location.href = '/';
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.error(error)
+                    alert("Delete fail");
+                });
+        }
+
         axios.delete(urlJob)
             .then(response => {
                 // window.location.href = '/';
                 console.log(response)
+                window.location.href = document.referrer;
+
             })
-            .catch(error => console.error(error));
-        
+            .catch(error => {
+                console.error(error)
+                alert("Delete fail");
+            });
+
 
     }
 
     const handleEdit = () => {
-        window.location.href = '/editjob/' + id+'/'+isFav;
+        window.location.href = '/editjob/' + id + '/' + isFav;
     }
 
 

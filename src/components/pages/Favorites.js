@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../../App.css';
 import JobCardFav from '../jobDisplay/jobCardFav.js';
-import JobCard from '../jobDisplay/jobCard';
-import Pagination from '../jobDisplay/Pagination';
 import axios from 'axios';
-import helper from '../../helper';
-import JobIdComponent from '../favorite/getJobIdComponent';
 import './Favorites.css';
 
 export default function Favorites() {
@@ -13,8 +9,6 @@ export default function Favorites() {
     const [allPokemon, setAllPokemon] = useState([]);
     const [userName, setUserName] = useState('');
     const [isLogged, setLog] = useState('not-log')
-
-
 
     function findAllPokemon() {
         axios.get('api/users/whoIsLoggedIn')
@@ -47,7 +41,6 @@ export default function Favorites() {
                             <JobCardFav jobInfo={item} />
                         </li>
                     );
-
                 })}
             </div>
         </div>

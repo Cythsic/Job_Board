@@ -4,8 +4,6 @@ import { FiAlignRight, FiXCircle, FiChevronDown } from "react-icons/fi";
 import './NavbarMenu.css';
 import axios from 'axios';
 import helper from '../../helper';
-// import logo from '../../img/logo.png';
-
 
 const Navbarmenu = () => {
     const [userLog, setUserLog] = useState({
@@ -16,7 +14,6 @@ const Navbarmenu = () => {
         axios.get('/api/users/whoIsLoggedIn')
           .then(response => {
             console.log("api request")
-            // alert(response.request.responseURL)
             if(response.data!==''){
               setUserLog({
                   ...userLog,
@@ -29,7 +26,6 @@ const Navbarmenu = () => {
           })
           .catch(error => {
             console.log(error)
-            // alert("register fail")
             console.log(error)
           });
       

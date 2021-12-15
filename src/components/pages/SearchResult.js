@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import '../../App.css';
 import JobCard from '../jobDisplay/jobCard.js';
-import Pagination from '../jobDisplay/Pagination';
 import axios from 'axios';
 
 export default function SearchResult(props) {
@@ -57,14 +56,8 @@ export default function SearchResult(props) {
                     );
 
                 })}
-
-                {/* <JobCard />
-                    <JobCard />
-                    <JobCard />
-                    <JobCard /> */}
             </div>
         </div>
-        <Pagination />
     </div>
 }
 // }

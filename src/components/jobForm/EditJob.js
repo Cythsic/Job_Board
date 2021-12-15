@@ -50,23 +50,20 @@ export default (props) => {
               email: response.data[0].email,
               website: response.data[0].website,
               user: res.data
+            });
+            setFavData({
+              ...favData,
+              job: response.data[0].job,
+              company: response.data[0].company,
+              location: response.data[0].location,
+              description: response.data[0].description,
+              email: response.data[0].email,
+              website: response.data[0].website
             })
-            if (isFav === "true") {
-              setFavData({
-                ...favData,
-                job: response.data[0].job,
-                company: response.data[0].company,
-                location: response.data[0].location,
-                description: response.data[0].description,
-                email: response.data[0].email,
-                website: response.data[0].website
-              })
-            }
-
           })
           .catch(error => {
             console.log(error)
-            alert("edit job fail")
+            // alert("edit job fail")
 
           });
         console.log("user:", res.data)
@@ -74,7 +71,7 @@ export default (props) => {
       })
       .catch(error => {
         console.log(error)
-        alert("get user fail")
+        // alert("get user fail")
 
       });
 
@@ -83,27 +80,33 @@ export default (props) => {
   const handleEdit = () => {
     var urlJob = '/api/jobs/edit/' + id;
     var urlFav = '/api/favorites/editFav/' + id;
-    axios.put(urlJob, jobData)
-      .then(response => {
-        console.log(response)
-      })
-      .catch(error => {
-        console.log(error)
-        // alert("edit job fail")
 
-      });
     console.log(favData);
-    if (isFav === "true")
+    if (isFav === "true") {
+
       axios.put(urlFav, favData)
         .then(response => {
-          console.log(response)
+          console.log("edit fav success")
         })
         .catch(error => {
           console.log(error)
           // alert("edit job fail fav")
 
         });
+    }
+    axios.put(urlJob, jobData)
+      .then(response => {
+        console.log(response)
+        window.location.href = document.referrer;
+
+      })
+      .catch(error => {
+        console.log(error)
+        // alert("edit job fail")
+
+      });
   }
+
 
 
   const handleCancel = () => {
@@ -124,7 +127,11 @@ export default (props) => {
                 setJobData({
                   ...jobData,
                   job: job
-                })
+                });
+                setFavData({
+                  ...favData,
+                  job: job
+                });
               }}
                 required />
             </div>
@@ -137,7 +144,11 @@ export default (props) => {
                 setJobData({
                   ...jobData,
                   company: company
-                })
+                });
+                setFavData({
+                  ...favData,
+                  company: company
+                });
               }}
                 required />
             </div>
@@ -150,7 +161,11 @@ export default (props) => {
                 setJobData({
                   ...jobData,
                   location: location
-                })
+                });
+                setFavData({
+                  ...favData,
+                  location: location
+                });
               }}
                 required />
             </div>
@@ -164,7 +179,11 @@ export default (props) => {
                 setJobData({
                   ...jobData,
                   description: description
-                })
+                });
+                setFavData({
+                  ...favData,
+                  description: description
+                });
               }}
                 required />
             </div>
@@ -177,7 +196,11 @@ export default (props) => {
                 setJobData({
                   ...jobData,
                   email: email
-                })
+                });
+                setFavData({
+                  ...favData,
+                  email: email
+                });
               }}
                 required />
             </div>
@@ -190,7 +213,11 @@ export default (props) => {
                 setJobData({
                   ...jobData,
                   website: website
-                })
+                });
+                setFavData({
+                  ...favData,
+                  website: website
+                });
               }} />
             </div>
           </div>
