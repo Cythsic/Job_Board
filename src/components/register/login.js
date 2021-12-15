@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import './signin.css';
+import helper from '../../helper';
+import CryptoJs from 'crypto-js';
+
 
 export default (props) =>{
     // render() {
@@ -31,7 +34,7 @@ export default (props) =>{
                             const password = e.target.value;
                             setUserData({
                                 ...userData,
-                                password: password
+                                password: CryptoJs.MD5(password).toString()
                             })
                         }}/>
                         </div>
@@ -39,7 +42,9 @@ export default (props) =>{
                         <button className="btn btn-dark btn-ml btn-block"
                         onClick={() => {
                             axios.post('/api/users/authenticate', userData)
-                                .then(response => {console.log(response)
+                                .then(response => {
+                                    console.log(response)
+                                    helper.username = userData.username;
                                     // alert(response.request.responseURL)
                                     window.location.href = '/';
                                 })

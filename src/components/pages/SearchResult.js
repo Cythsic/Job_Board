@@ -9,15 +9,7 @@ export default function SearchResult(props) {
     const currurl = window.location.pathname;
     const path = currurl.split('/');
     const keyword = path[path.length - 1];
-    // export default class SearchResult extends Component {
-    // constructor(props) {
-    //     super(props);
-    // }
-    // return <h1 className='sign-up'>LIKE & SUBSCRIBE</h1>;
-    // render() {
-    // const {keyword} = props.location.state;
     console.log("location:", path)
-    // const keyword = 'sde';)
     const [jobData, setJob] = useState({
         datas: []
     });
@@ -48,7 +40,6 @@ export default function SearchResult(props) {
                 })
                 .catch(error => {
                     console.log(error)
-
                 });
         }
     }, []);

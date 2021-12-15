@@ -15,13 +15,22 @@ exports.UserSchema = new Schema({
     collection: 'users'
 })
 
-/*
-new Schema {
+// const Schema = require('mongoose').Schema;
 
-    username: String,
-    favoriteId: favoriteID
-}
+// exports.UserSchema = new Schema({
+//     username: {
+//         type: String,
+//         unique: true,
+//     },
+//     password: {
+//         type: String,
+//     },
+//     favorites: {
+//         type: Array,
+//     }
+// }, {
+//     collection: 'users'
+// })
 
-*/
 
 

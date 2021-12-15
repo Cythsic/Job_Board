@@ -1,6 +1,7 @@
 import './signin.css';
 import axios from 'axios';
 import React, { useState } from 'react';
+import CryptoJs from 'crypto-js';
 
 
 export default (props) => {
@@ -34,7 +35,7 @@ export default (props) => {
                             const password = e.target.value;
                             setUserData({
                                 ...userData,
-                                password: password
+                                password: CryptoJs.MD5(password).toString()
                             })
                         }} type='password' />
                     </div>
@@ -45,7 +46,7 @@ export default (props) => {
                             const password2 = e.target.value;
                             setUserData({
                                 ...userData,
-                                password2: password2
+                                password2: CryptoJs.MD5(password2).toString()
                             })
                         }} type='password' />
                     </div>

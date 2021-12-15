@@ -43,7 +43,7 @@ export default function JobDetail() {
                         .then(response => {
                             setJobInfo({
                                 ...jobIfo,
-                                jobid: response.data[0]._id,
+                                jobid: id,
                                 user: resUser.data,
                                 job: response.data[0].job,
                                 company: response.data[0].company,
@@ -135,9 +135,8 @@ export default function JobDetail() {
 
     const handleDelete = () => {
         var urlFav = '/api/favorites/deleteJob/' + jobIfo.jobid;
-        console.log(urlFav)
         var urlJob = '/api/jobs/delete/' + id;
-        console.log(urlJob)
+        console.log(urlFav)
         axios.delete(urlFav)
         .then(response => {
             // window.location.href = '/';
@@ -155,7 +154,7 @@ export default function JobDetail() {
     }
 
     const handleEdit = () => {
-        window.location.href = '/editjob/' + id+'/'+isFav;
+        window.location.href = '/editjob/' + id;
     }
 
 

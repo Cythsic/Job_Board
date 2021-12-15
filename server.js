@@ -2,6 +2,7 @@ const express = require('express');
 const pokemon = require('./routes/pokemon.js');
 const users = require('./routes/user.js');
 const jobs = require('./routes/job.js');
+const favorites = require('./routes/favorite.js')
 const cors = require('cors')
 const mongoose = require('mongoose');
 const path = require('path');
@@ -37,6 +38,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/pokemon', pokemon);
 app.use('/api/users', users);
 app.use('/api/jobs', jobs);
+app.use('/api/favorites', favorites);
 // Note that it is common practice got backend APIs in Node to start with the api prefix
 // to distinguish them from frontend routes 
 

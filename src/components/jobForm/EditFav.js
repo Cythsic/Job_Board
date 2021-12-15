@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default (props) => {
+  const currurl = window.location.pathname;
+  const path = currurl.split('/');
+  const id = path[path.length - 1];
+  console.log("location:", id)
 
   const [jobData, setJobData] = useState({
     job: '',
@@ -15,14 +19,52 @@ export default (props) => {
     website: ''
   });
 
+  const [favData, setFavData] = useState({
+    job: '',
+    company: '',
+    location: '',
+    description: '',
+    email: '',
+    website: ''
+  });
+
   useEffect(() => {
     axios.get('/api/users/whoIsLoggedIn')
-      .then(response => {
+      .then(res => {
         setJobData({
           ...jobData,
-          user: response.data
+          user: res.data
         })
-        console.log(response)
+        var url = '/api/jobs/findId/' + id;
+        axios.get(url)
+          .then(response => {
+            console.log(response.data[0])
+            setJobData({
+              ...jobData,
+              job: response.data[0].job,
+              company: response.data[0].company,
+              location: response.data[0].location,
+              description: response.data[0].description,
+              email: response.data[0].email,
+              website: response.data[0].website,
+              user: res.data
+            })
+            setFavData({
+              ...favData,
+              job: response.data[0].job,
+              company: response.data[0].company,
+              location: response.data[0].location,
+              description: response.data[0].description,
+              email: response.data[0].email,
+              website: response.data[0].website
+            })
+          })
+          .catch(error => {
+            console.log(error)
+            alert("edit job fail")
+
+          });
+        console.log("user:", res.data)
 
       })
       .catch(error => {
@@ -32,6 +74,35 @@ export default (props) => {
       });
 
   }, []);
+
+  const handleEdit = () => {
+    var urlJob = '/api/jobs/edit/' + id;
+    var urlFav = '/api/favorites/editFav/' + id;
+    axios.put(urlJob, jobData)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+        // alert("edit job fail")
+
+      });
+      console.log(favData);
+      axios.put(urlFav, favData)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+        // alert("edit job fail fav")
+
+      });
+  }
+
+
+  const handleCancel = () => {
+    window.location.href = document.referrer;
+  }
 
   return (
     <div className="outer">
@@ -118,32 +189,16 @@ export default (props) => {
               }} />
             </div>
           </div>
-          <div className="mb-3 row">
+          <div className="mb-3">
             <div className="col-sm-offset-2 col-sm-2">
               <button type="button" className="btn btn-success btn-lg"
-                onClick={() => {
-                  console.log(jobData);
-                  axios.post('/api/jobs/create', jobData)
-                    .then(response => {
-                      console.log(response)
-                      // alert(response.request.responseURL)
-                      window.location.href = '/';
-                    })
-                    .catch(error => {
-                      console.log(error)
-                      alert("create job fail")
-
-                    });
-                  // window.location.href = document.referrer;
-                  // window.history.go(-1);
-
-                }}
+                onClick={handleEdit}
 
               >Submit</button>
             </div>
             <div className="col-sm-offset-2 col-sm-2">
               <Link to='/'>
-                <button type="button" className="btn btn-default btn-lg" >Cancel</button>
+                <button type="button" className="btn btn-default btn-lg" onClick={handleCancel}>Cancel</button>
               </Link>
             </div>
           </div>

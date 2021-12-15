@@ -1,86 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import '../../App.css';
-import JobCard from '../jobDisplay/jobCard.js';
+import JobCardFav from '../jobDisplay/jobCardFav.js';
+import JobCard from '../jobDisplay/jobCard';
 import Pagination from '../jobDisplay/Pagination';
 import axios from 'axios';
 import helper from '../../helper';
+import JobIdComponent from '../favorite/getJobIdComponent';
+import './Favorites.css';
+
+export default function Favorites() {
+
+    const [allPokemon, setAllPokemon] = useState([]);
+    const [userName, setUserName] = useState('');
+    const [isLogged, setLog] = useState('not-log')
 
 
-export default function Favorites(props) {
-  const [idList, setIdList] = useState({
-    ids: []
-  });
 
-  const [jobList, setJobList] = useState([]);
-
-  const [isVisit, setVisit] = useState({
-    whoIsLoggedIn: false,
-    findFavorite: false,
-  });
-
-  const [userLog, setUserLog] = useState({
-    user: '',
-    isLog: false
-  })
-
-  useEffect(() => {
-    axios.get('/api/users/whoIsLoggedIn')
-      .then(response => {
-        console.log("api request")
-        // alert(response.request.responseURL)
-        if (response.data !== '') {
-          setJobList([]);
-          setUserLog({
-            ...userLog,
-            user: response.data,
-            isLog: true
-          });
-          var idUrl = 'api/users/findFavorite/' + response.data;
-          axios.get(idUrl)
+    function findAllPokemon() {
+        axios.get('api/users/whoIsLoggedIn')
             .then(response => {
-              console.log(response.data)
-              response.data.map(jobid => {
-                console.log(jobid)
-                var jobUrl = 'api/jobs/findId/' + jobid;
-                axios.get(jobUrl)
-                  .then(response => {
-                    setJobList([...jobList, response.data])
-                  })
-                  .catch(error => {
-                    console.log(error);
-                  })
-              })
+                //   setUserName(response.data)
+
+                if (response.data !== '') {
+                    setLog('is-log');
+                    axios.get('api/favorites/getFavJob/' + response.data)
+                        .then(response => {
+                            console.log("FavList Data: ", response.data)
+                            setAllPokemon(response.data)
+                        })
+                }
             })
-            .catch(error => {
-              console.log(error)
-            });
-        }
-      })
-      .catch(error => {
-        console.log(error)
-        // alert("register fail")
-      });
+            .catch(error => console.error(error));
+    }
 
-  }, []);
+    useEffect(findAllPokemon, []);
 
-  return <div>
-    <div className="searchResult">
-      <h3>Your Favorites</h3>
-      <div className='jobcard'>
-        {jobList.map((item, index) => {
-          console.log("fav",item[0])
-          var card = item[0];
-          return (
-            <li key={index}>
-              <JobCard jobInfo={card} />
-            </li>
-          );
+    return <div>
+        <div className="searchResult">
+            <h3>Your Favorites</h3>
+            <div className='jobcard'>
+                <p className={isLogged}>Please log in to see your favorites.</p>
+                {allPokemon.map((item, index) => {
+                    console.log("search:" + JSON.stringify(item))
+                    return (
+                        <li key={index}>
+                            <JobCardFav jobInfo={item} />
+                        </li>
+                    );
 
-        })}
-      </div>
+                })}
+            </div>
+        </div>
     </div>
-    <Pagination />
-  </div>
-
 }
-// }

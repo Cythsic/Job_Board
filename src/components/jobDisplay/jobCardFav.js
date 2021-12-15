@@ -9,8 +9,7 @@ export default class JobCard extends Component {
     }
     
     render() {
-            const detailUrl = '/detail/' + this.props.jobInfo._id;
-            // const detailUrl = '/detailfav/' + this.props.jobInfo.jobid;
+            const detailUrl = '/detail/' + this.props.jobInfo.jobid;
         return (
             <div className="card">
                 {/* <img src={this.props.jobInfo.img===undefined?'...' : this.props.jobInfo.img} class="card-img-top" alt="..." /> */}
